@@ -1,0 +1,18 @@
+.header {
+  padding: 0;
+}
+
+.trigger {
+  color: white;
+  line-height: 44px;
+  float: left;
+  padding: 10px 20px;
+  font-size: 22px;
+}
+
+.sider_and_content_layout{
+  position: absolute;
+  top:64px;
+  bottom: 0px;
+  width: 100%;
+}

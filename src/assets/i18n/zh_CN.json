@@ -1,0 +1,14 @@
+{
+  "login": {
+    "title": "登录",
+    "placeholder": {
+      "account": "邮箱/账号",
+      "password": "密码"
+    },
+    "login": "登录",
+    "logout": "退出登录",
+    "AboutMe": "关于我",
+    "forget": "忘记密码",
+    "register": "注册账号"
+  }
+}

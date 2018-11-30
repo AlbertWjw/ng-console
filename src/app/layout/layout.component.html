@@ -1,0 +1,78 @@
+<nz-layout class="layout">
+  <nz-header class="header">
+    <div class="logo"></div>
+    <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
+      <li nz-menu-item>nav 1</li>
+      <li nz-menu-item>nav 2</li>
+      <li nz-menu-item>nav 3</li>
+    </ul>
+    <div style="position: absolute;right:12px;top:0;margin: 0 10px">
+      <!--用户信息展示：头像、用户名-->
+      <nz-dropdown style="float:left" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+        <div nz-dropdown>
+          <nz-avatar nzIcon="anticon anticon-user"></nz-avatar>
+          <span style="color:white;margin:0 10px;">{{ username }}</span>
+        </div>
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item>
+            <a>About Me</a>
+          </li>
+          <li nz-menu-item>
+            <a>{{ 'loginPage.logout' | translate }}</a>
+          </li>
+        </ul>
+      </nz-dropdown>
+      <!--国际化：语言切换器-->
+      <nz-select style="width: 100px;margin: 0 10px" [(ngModel)]="language" (ngModelChange)="setLocale()">
+        <nz-option nzValue="zh_CN" nzLabel="简体中文"></nz-option>
+        <nz-option nzValue="en_US" nzLabel="English"></nz-option>
+      </nz-select>
+
+    </div>
+  </nz-header>
+  <nz-layout class="sider_and_content_layout">
+    <nz-sider [(nzCollapsed)]="isCollapsed" [nzBreakpoint]="'md'" [nzCollapsedWidth]="0" [nzTrigger]="null" [nzWidth]="200"
+      style="background:#fff;box-shadow: 2px 0 6px rgba(0,21,41,.15);">
+      <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" style="height:100%">
+        <li nz-submenu>
+          <span title><i nz-icon type="user"></i><span class="nav-text">subnav 1</span></span>
+          <ul>
+            <li nz-menu-item>option1</li>
+            <li nz-menu-item>option2</li>
+            <li nz-menu-item>option3</li>
+            <li nz-menu-item>option4</li>
+          </ul>
+        </li>
+        <li nz-submenu>
+          <span title><i nz-icon type="laptop"></i><span class="nav-text">subnav 2</span></span>
+          <ul>
+            <li nz-menu-item>option5</li>
+            <li nz-menu-item>option6</li>
+            <li nz-menu-item>option7</li>
+            <li nz-menu-item>option8</li>
+          </ul>
+        </li>
+        <li nz-submenu>
+          <span title><i nz-icon type="notification"></i><span class="nav-text">subnav 3</span></span>
+          <ul>
+            <li nz-menu-item>option9</li>
+            <li nz-menu-item>option10</li>
+            <li nz-menu-item>option11</li>
+            <li nz-menu-item>option12</li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout style="padding:0 24px 24px">
+      <nz-breadcrumb style="margin:16px 0;">
+        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+        <nz-breadcrumb-item>List</nz-breadcrumb-item>
+        <nz-breadcrumb-item>App</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <nz-content style="background:#fff; padding: 24px; min-height: 280px;">
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
