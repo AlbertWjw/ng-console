@@ -2,15 +2,22 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './user/login/login.component';
+import { LogoutComponent } from './user/logout/logout.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { TestComponent } from './pages/test/test.component';
 
 const routes: Routes = [
   {
     path: '', component: LayoutComponent, children: [
-      { path: 'home', component: LoginComponent }
+      { path: 'home', component: LoginComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'test', component: TestComponent },
     ]
   },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
+
 ];
 
 @NgModule({

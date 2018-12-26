@@ -9,12 +9,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, CommonModule } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { UserModule } from './user/user.module';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { TestComponent } from './pages/test/test.component';
 
 registerLocaleData(zh);
 
@@ -27,7 +29,8 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     AppComponent,
     LayoutComponent,
-    // LoginComponent
+    DashboardComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     NgZorroAntdModule,
     UserModule,
+    CommonModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -44,6 +48,9 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     })
+  ],
+  exports: [
+    CommonModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

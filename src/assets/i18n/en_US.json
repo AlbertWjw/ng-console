@@ -1,4 +1,7 @@
 {
+  "menu": {
+    "dashboard": "Dashboard"
+  },
   "loginPage": {
     "logout": "LoginOut",
     "AboutMe": "About Me"

@@ -16,4 +16,10 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
+
+  // 临时
+  next = () => {
+    window.localStorage.setItem('Username', 'admin' + Math.round(Math.random() * 10));
+    this.router.navigate(['/']);
+  }
 }

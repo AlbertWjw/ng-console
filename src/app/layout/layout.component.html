@@ -1,14 +1,20 @@
 <nz-layout class="layout">
+  <!--顶部栏 start-->
   <nz-header class="header">
     <div class="logo"></div>
-    <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
-    <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
-      <li nz-menu-item>nav 1</li>
-      <li nz-menu-item>nav 2</li>
-      <li nz-menu-item>nav 3</li>
-    </ul>
+    <!--侧边栏收放按钮 start-->
+    <i *ngIf="!isMobile" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" class="trigger" (click)="isCollapsed=!isCollapsed"></i>
+    <!--侧边栏收放按钮 end-->
+    <!--mobile下使用气泡卡片显示侧边栏-->
+    <i *ngIf="isMobile" nz-icon nz-popover nzPlacement="bottomLeft" nzTrigger="click" [nzContent]="titleTemplate"
+      [type]="isCollapsedM?'menu-unfold':'menu-fold'" class="trigger" (nzVisibleChange)='isCollapsedM=!isCollapsedM'></i>
+    <ng-template #titleTemplate>
+      <nz-tree [nzData]="siderData" (nzClick)='onTreeClick($event)'>
+      </nz-tree>
+    </ng-template>
+    <!--mobile下使用气泡卡片显示侧边栏 end-->
     <div style="position: absolute;right:12px;top:0;margin: 0 10px">
-      <!--用户信息展示：头像、用户名-->
+      <!--用户信息展示：头像、用户名 start-->
       <nz-dropdown style="float:left" [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
         <div nz-dropdown>
           <nz-avatar nzIcon="anticon anticon-user"></nz-avatar>
@@ -19,60 +25,70 @@
             <a>About Me</a>
           </li>
           <li nz-menu-item>
-            <a>{{ 'loginPage.logout' | translate }}</a>
+            <a href="/logout">{{ 'loginPage.logout' | translate }}</a>
           </li>
         </ul>
       </nz-dropdown>
-      <!--国际化：语言切换器-->
+      <!--用户信息展示：头像、用户名 end-->
+      <!--国际化：语言切换器 start-->
       <nz-select style="width: 100px;margin: 0 10px" [(ngModel)]="language" (ngModelChange)="setLocale()">
         <nz-option nzValue="zh_CN" nzLabel="简体中文"></nz-option>
         <nz-option nzValue="en_US" nzLabel="English"></nz-option>
       </nz-select>
-
+      <!--国际化：语言切换器 end-->
     </div>
   </nz-header>
+  <!--顶部栏 end-->
   <nz-layout class="sider_and_content_layout">
-    <nz-sider [(nzCollapsed)]="isCollapsed" [nzBreakpoint]="'md'" [nzCollapsedWidth]="0" [nzTrigger]="null" [nzWidth]="200"
-      style="background:#fff;box-shadow: 2px 0 6px rgba(0,21,41,.15);">
+    <!--侧边栏 start-->
+    <nz-sider #mydiv [(nzCollapsed)]="isCollapsed" [nzBreakpoint]="'sm'" [nzCollapsedWidth]="0" [nzTrigger]="null"
+      [nzWidth]="200" style="background:#fff;box-shadow: 2px 0 6px rgba(0,21,41,.15);">
       <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed" style="height:100%">
-        <li nz-submenu>
-          <span title><i nz-icon type="user"></i><span class="nav-text">subnav 1</span></span>
-          <ul>
-            <li nz-menu-item>option1</li>
-            <li nz-menu-item>option2</li>
-            <li nz-menu-item>option3</li>
-            <li nz-menu-item>option4</li>
-          </ul>
-        </li>
-        <li nz-submenu>
-          <span title><i nz-icon type="laptop"></i><span class="nav-text">subnav 2</span></span>
-          <ul>
-            <li nz-menu-item>option5</li>
-            <li nz-menu-item>option6</li>
-            <li nz-menu-item>option7</li>
-            <li nz-menu-item>option8</li>
-          </ul>
-        </li>
-        <li nz-submenu>
-          <span title><i nz-icon type="notification"></i><span class="nav-text">subnav 3</span></span>
-          <ul>
-            <li nz-menu-item>option9</li>
-            <li nz-menu-item>option10</li>
-            <li nz-menu-item>option11</li>
-            <li nz-menu-item>option12</li>
-          </ul>
-        </li>
+        <!--遍历生成菜单 start-->
+        <div *ngFor="let item of siderData">
+          <li nz-submenu *ngIf="item.children" [nzOpen]="item.open">
+            <span title><i nz-icon [type]="item.icon"></i><span class="nav-text">{{'menu.'+item.title | translate}}</span></span>
+            <ul *ngIf="item.children">
+              <li nz-menu-item *ngFor="let i of item.children" [nzSelected]='menuSelected == i.url'>
+                <a [routerLink]="i.url">{{'menu.'+i.title | translate}}</a>
+              </li>
+            </ul>
+          </li>
+          <li nz-menu-item nz-tooltip nzPlacement="right" *ngIf="!item.children" [nzSelected]='menuSelected == item.url'>
+            <a [routerLink]="item.url">
+              <span title>
+                <i nz-icon [type]="item.icon"></i>
+                <span>{{'menu.'+item.title | translate}}</span>
+              </span></a>
+          </li>
+        </div>
+        <!--遍历生成菜单 end-->
       </ul>
     </nz-sider>
+    <!--侧边栏 end-->
     <nz-layout style="padding:0 24px 24px">
+      <!--面包屑 start-->
       <nz-breadcrumb style="margin:16px 0;">
-        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-        <nz-breadcrumb-item>List</nz-breadcrumb-item>
-        <nz-breadcrumb-item>App</nz-breadcrumb-item>
+        <nz-breadcrumb-item *ngFor="let item of pathname">{{item}}</nz-breadcrumb-item>
       </nz-breadcrumb>
+      <!--面包屑 end-->
+      <!--正文 start-->
       <nz-content style="background:#fff; padding: 24px; min-height: 280px;">
         <router-outlet></router-outlet>
+
       </nz-content>
+      <!--正文 end-->
     </nz-layout>
   </nz-layout>
 </nz-layout>
+
+<!--开发环境下才会出现的抽屉-->
+<nz-drawer *ngIf="!production" [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="Basic Drawer"
+  (nzOnClose)="close()" [nzMaskClosable]="true" [nzWidth]="300">
+  <div class="btnDrawerOpen" (click)="onChange()">
+    <i nz-icon type="setting"></i>
+  </div>
+  <p>Some contents...</p>
+  <p>Some contents...</p>
+  <p>Some contents...</p>
+</nz-drawer>

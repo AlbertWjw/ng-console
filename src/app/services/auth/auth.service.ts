@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AuthService {
     console.log(localUserLog);
     if (!localUserLog) {
       this.router.navigate(['/login']);
-      window.localStorage.setItem('Username', 'admin1');
+      // window.localStorage.setItem('Username', 'admin1');
     } else {
       // this.http.get('/user/login');
     }

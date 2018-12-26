@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
 
-  private lang = 'zh';
+  private lang = 'zh_CN';
 
   constructor(private translate: TranslateService) {
     // 参数类型为数组，数组元素为本地语言json配置文件名

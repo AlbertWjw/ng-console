@@ -1,5 +1,8 @@
 {
-  "login": {
+  "menu": {
+    "dashboard": "控制台"
+  },
+  "loginPage": {
     "title": "登录",
     "placeholder": {
       "account": "邮箱/账号",
