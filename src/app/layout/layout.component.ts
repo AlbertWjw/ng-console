@@ -112,4 +112,8 @@ export class LayoutComponent implements OnInit {
   close(): void {
     this.visible = false;
   }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

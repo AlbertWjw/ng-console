@@ -25,7 +25,7 @@
             <a>About Me</a>
           </li>
           <li nz-menu-item>
-            <a href="/logout">{{ 'loginPage.logout' | translate }}</a>
+            <div (click)='logout()'>{{ 'loginPage.logout' | translate }}</div>
           </li>
         </ul>
       </nz-dropdown>
