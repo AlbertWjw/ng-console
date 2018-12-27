@@ -20,4 +20,10 @@ export class AuthService {
       // this.http.get('/user/login');
     }
   }
+
+  // 退出登陆
+  logout(): void {
+    window.localStorage.setItem('Username', '');
+    this.router.navigate(['/login']);
+  }
 }
